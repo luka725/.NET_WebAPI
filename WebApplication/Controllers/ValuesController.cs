@@ -9,31 +9,67 @@ namespace WebApplication.Controllers
 {
     public class ValuesController : ApiController
     {
+        private static List<string> _values = new List<string> { "Value1", "Value2" };
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _values;
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            if (id >= 0 && id < _values.Count)
+            {
+                return Ok(_values[id]);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         // POST api/values
-        public void Post([FromBody] string value)
+        public IHttpActionResult Post([FromBody] string value)
         {
+            if (!string.IsNullOrEmpty(value))
+            {
+                _values.Add(value);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Value cannot be empty!");
+            }
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
+        public IHttpActionResult Put(int id, [FromBody] string value)
         {
+            if (id >= 0 && id < _values.Count && !string.IsNullOrEmpty(value))
+            {
+                _values[id] = value;
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            if (id >= 0 && id < _values.Count)
+            {
+                _values.RemoveAt(id);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

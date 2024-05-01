@@ -54,6 +54,7 @@ D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Antlr3.Runtime.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Microsoft.Web.Infrastructure.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Newtonsoft.Json.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Swashbuckle.Core.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Net.Http.Formatting.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.Helpers.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.Http.dll
@@ -64,6 +65,7 @@ D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.Razor.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.WebPages.Deployment.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.WebPages.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.WebPages.Razor.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\WebActivatorEx.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\WebGrease.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Newtonsoft.Json.xml
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Net.Http.Formatting.xml
