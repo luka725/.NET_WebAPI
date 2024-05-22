@@ -37,5 +37,27 @@ namespace WebApplication.Controllers
                 }
             }
         }
+        [System.Web.Http.Route("api/auth/getID")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> GetUserID(User email)
+        {
+            string mail = email.Email;
+            try
+            {
+                if (string.IsNullOrEmpty(mail))
+                {
+                    return BadRequest("Invalid Email");
+                }
+                else
+                {
+                    int userID = await DatabaseHelper.Instance.GetUserIdByEmail(mail);
+                    return Ok(userID);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

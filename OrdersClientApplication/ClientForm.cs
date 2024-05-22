@@ -12,14 +12,12 @@ namespace OrdersClientApplication
 {
     public partial class ClientForm : Form
     {
-        public ClientForm()
+        private readonly int userID;
+        public ClientForm(int id)
         {
             InitializeComponent();
-        }
-
-        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
+            userID = id;
+            label1.Text = userID.ToString();
         }
     }
 }

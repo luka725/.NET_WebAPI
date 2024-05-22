@@ -36,5 +36,24 @@ namespace WebApplication.DBHelper
             }
             return user.Password == password;
         }
+        public async Task<int> GetUserIdByEmail(string email)
+        {
+            try
+            {
+                var user = await dbContext.Set<User>().FirstOrDefaultAsync(u => u.Email == email);
+                if (user != null)
+                {
+                    return user.ID;
+                }
+                else
+                {
+                    throw new InvalidOperationException("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting user ID by email", ex);
+            }
+        }
     }
 }
