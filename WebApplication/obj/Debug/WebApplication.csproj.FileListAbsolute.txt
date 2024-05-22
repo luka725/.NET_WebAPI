@@ -51,6 +51,11 @@ D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\roslyn\vbc.rsp
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\roslyn\VBCSCompiler.exe
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\roslyn\VBCSCompiler.exe.config
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Antlr3.Runtime.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\AutoMapper.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\DataAccesLayer.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\DataTransferObjects.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\EntityFramework.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\EntityFramework.SqlServer.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Microsoft.Web.Infrastructure.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Newtonsoft.Json.dll
@@ -65,6 +70,12 @@ D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.WebPages.Deployment.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.WebPages.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.WebPages.Razor.dll
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\WebGrease.dll
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\DataAccesLayer.pdb
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\DataAccesLayer.dll.config
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\DataTransferObjects.pdb
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\AutoMapper.xml
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\EntityFramework.xml
+D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\EntityFramework.SqlServer.xml
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\Newtonsoft.Json.xml
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Net.Http.Formatting.xml
 D:\GAU\.NET_WebAPI\WEB_API\WebApplication\bin\System.Web.Helpers.xml

@@ -1,0 +1,12 @@
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\DataAccesLayer.dll.config
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\DataAccesLayer.dll
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\DataAccesLayer.pdb
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\EntityFramework.dll
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\EntityFramework.xml
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.AssemblyReference.cache
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CoreCompileInputs.cache
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CopyComplete
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\obj\Debug\DataAccesLayer.dll
+D:\GAU\.NET_WebAPI\WEB_API\DataAccesLayer\obj\Debug\DataAccesLayer.pdb

@@ -1,0 +1,16 @@
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\OrdersClientApplication.exe.config
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\OrdersClientApplication.exe
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\OrdersClientApplication.pdb
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\Newtonsoft.Json.dll
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\Newtonsoft.Json.xml
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.csproj.AssemblyReference.cache
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.ClientForm.resources
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.LoginForm.resources
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.Properties.Resources.resources
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.csproj.GenerateResource.cache
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.csproj.CoreCompileInputs.cache
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.csproj.CopyComplete
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.exe
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.pdb
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\DataTransferObjects.dll
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\DataTransferObjects.pdb

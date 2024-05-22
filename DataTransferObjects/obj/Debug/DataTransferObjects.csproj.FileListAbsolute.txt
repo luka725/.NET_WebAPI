@@ -1,0 +1,6 @@
+D:\GAU\.NET_WebAPI\WEB_API\DataTransferObjects\bin\Debug\DataTransferObjects.dll
+D:\GAU\.NET_WebAPI\WEB_API\DataTransferObjects\bin\Debug\DataTransferObjects.pdb
+D:\GAU\.NET_WebAPI\WEB_API\DataTransferObjects\obj\Debug\DataTransferObjects.csproj.AssemblyReference.cache
+D:\GAU\.NET_WebAPI\WEB_API\DataTransferObjects\obj\Debug\DataTransferObjects.csproj.CoreCompileInputs.cache
+D:\GAU\.NET_WebAPI\WEB_API\DataTransferObjects\obj\Debug\DataTransferObjects.dll
+D:\GAU\.NET_WebAPI\WEB_API\DataTransferObjects\obj\Debug\DataTransferObjects.pdb
