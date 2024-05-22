@@ -59,5 +59,20 @@ namespace WebApplication.Controllers
                 return InternalServerError(ex);
             }
         }
+        [System.Web.Http.Route("api/auth/getUser")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> GetUser(User Id)
+        {
+            int id = Id.ID;
+            try
+            {
+                UsersDTO user = await DatabaseHelper.Instance.GetUserById(id);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

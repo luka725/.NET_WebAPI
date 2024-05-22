@@ -1,10 +1,12 @@
 ﻿using DataAccesLayer;
+using DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using WebApplication.Common;
 
 namespace WebApplication.DBHelper
 {
@@ -53,6 +55,24 @@ namespace WebApplication.DBHelper
             catch (Exception ex)
             {
                 throw new Exception("Error getting user ID by email", ex);
+            }
+        }
+        public async Task<UsersDTO> GetUserById(int id)
+        {
+            try
+            {
+                var user = await dbContext.Set<User>().FirstOrDefaultAsync(u => u.ID == id);
+                if(user != null)
+                {
+                    return AutoMapperConfig.Mapper.Map<UsersDTO>(user);
+                }
+                else
+                {
+                    throw new InvalidOperationException("User not found");
+                }
+            }catch (Exception ex)
+            {
+                throw new Exception("Error getting user by ID", ex);
             }
         }
     }

@@ -35,7 +35,7 @@ namespace OrdersClientApplication
             if (isAuthenticated)
             {
                 int userid = await GetUserId(email);
-                ClientForm clientForm = new ClientForm(userid);
+                ClientForm clientForm = new ClientForm(userid, client);
                 Hide();
                 clientForm.Show();
                 clientForm.FormClosed += (s, args) => Show();
