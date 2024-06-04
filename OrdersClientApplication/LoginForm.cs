@@ -42,27 +42,34 @@ namespace OrdersClientApplication
             }
         }
 
-        private async Task<bool> AuthenticateUser(string email, string password)
+        private async Task<bool> AuthenticateUser(string em, string pas)
         {
+            string email = em;
+            string password = pas;
+            string credentials = $"{email}:{password}";
+            string encodedCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(credentials));
+            client.BaseAddress = new Uri("https://localhost:44322/");
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", encodedCredentials);
             try
             {
-                
-                var user = new UsersDTO { Email = email, Password = password };
-                var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("https://localhost:44322/api/auth", content);
+                HttpResponseMessage response = await client.PostAsync("api/auth/login", null);
+
                 if (response.IsSuccessStatusCode)
                 {
+                    // Authentication successful
+                    string responseBody = await response.Content.ReadAsStringAsync();
                     return true;
                 }
                 else
                 {
-                    MessageBox.Show("Authentication failed. Please check your email and password.");
+                    // Authentication failed
+                    MessageBox.Show($"Failed to authenticate. Status code: {response.StatusCode}");
                     return false;
                 }
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show($"An error occurred while sending the request: {ex.Message}");
+                MessageBox.Show($"{ex.Message}");
                 return false;
             }
         }

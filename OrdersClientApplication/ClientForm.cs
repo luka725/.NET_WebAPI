@@ -56,5 +56,10 @@ namespace OrdersClientApplication
             var user = await GetUserInfo(userID);
             label1.Text = $"Hello {user.Name}";
         }
+
+        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

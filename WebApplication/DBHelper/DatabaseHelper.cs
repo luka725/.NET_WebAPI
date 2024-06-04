@@ -75,5 +75,16 @@ namespace WebApplication.DBHelper
                 throw new Exception("Error getting user by ID", ex);
             }
         }
+        public async Task<List<Order>> GetOrdersForUserAsync(int userId, int limit)
+        {
+            // Query orders using Entity Framework
+            var orders = await dbContext.Set<Order>()
+                .Where(o => o.UserID == userId)
+                .OrderByDescending(o => o.OrderDate)
+                .Take(limit)
+                .ToListAsync();
+
+            return orders;
+        }
     }
 }
