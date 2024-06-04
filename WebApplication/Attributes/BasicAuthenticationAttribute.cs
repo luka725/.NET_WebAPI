@@ -10,13 +10,16 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using WebApplication.DBHelper;
+using DataAccesLayer;
 
 namespace WebApplication.Attributes
 {
     public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
     {
+        private int userID;
         public override async Task OnAuthorizationAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
+
             if (actionContext.Request.Headers.Authorization == null)
             {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Authorization header is missing");
@@ -34,11 +37,17 @@ namespace WebApplication.Attributes
             {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Invalid email or password");
             }
+            userID = await DatabaseHelper.Instance.GetUserIdByEmail(email);
+            actionContext.Request.Properties["UserID"] = userID;
         }
 
         private async Task<bool> ValidateUserAsync(string email, string password)
         {
             return await DatabaseHelper.Instance.AuthenticateUserAsync(email, password);
+        }
+        public int GetUserId()
+        {
+            return userID;
         }
     }
 }

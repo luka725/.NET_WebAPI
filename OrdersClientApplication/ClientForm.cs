@@ -55,8 +55,48 @@ namespace OrdersClientApplication
         {
             var user = await GetUserInfo(userID);
             label1.Text = $"Hello {user.Name}";
-        }
+            List<OrdersDTO> orders = await FetchOrdersForUser(userID);
 
+            PopulateDataGridView(orders);
+        }
+        private async Task<List<OrdersDTO>> FetchOrdersForUser(int userId)
+        {
+            string baseAddress = "https://localhost:44322/";
+
+            string requestUrl = $"{baseAddress}api/orders/user?id={userId}";
+                try
+                {
+                    HttpResponseMessage response = await Client.GetAsync(requestUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseBody = await response.Content.ReadAsStringAsync();
+
+                        List<OrdersDTO> orders = JsonConvert.DeserializeObject<List<OrdersDTO>>(responseBody);
+                        return orders;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Failed to retrieve orders. Status code: {response.StatusCode}");
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}");
+                }
+            return new List<OrdersDTO>();
+        }
+        private void PopulateDataGridView(List<OrdersDTO> orders)
+        {
+            OrdersDgv.Rows.Clear();
+            OrdersDgv.ColumnCount = 2;
+            OrdersDgv.Columns[0].Name = "OrderId";
+            OrdersDgv.Columns[1].Name = "OrderDate";
+            foreach (var order in orders)
+            {
+                OrdersDgv.Rows.Add(order.ID, order.OrderDate);
+            }
+        }
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();

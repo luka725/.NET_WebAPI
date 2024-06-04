@@ -23,15 +23,21 @@ namespace WebApplication.Controllers
 
         [HttpGet]
         [Route("user")]
-        public async Task<IHttpActionResult> GetUserOrders(int id, int limit = 10)
+        public async Task<IHttpActionResult> GetUserOrders(int id, int limit = 5)
         {
-            int userId = id;
+            int userId = (int)Request.Properties["UserID"];
 
             try
             {
-                var orders = await DatabaseHelper.Instance.GetOrdersForUserAsync(userId, limit);
-
-                return Ok(orders);
+                if(userId == id)
+                {
+                    var orders = await DatabaseHelper.Instance.GetOrdersForUserAsync(userId, limit);
+                    return Ok(orders);
+                }
+                else
+                {
+                    return BadRequest("Dont try that!");
+                }
             }
             catch (Exception ex)
             {

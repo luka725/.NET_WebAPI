@@ -75,7 +75,7 @@ namespace WebApplication.DBHelper
                 throw new Exception("Error getting user by ID", ex);
             }
         }
-        public async Task<List<Order>> GetOrdersForUserAsync(int userId, int limit)
+        public async Task<List<OrdersDTO>> GetOrdersForUserAsync(int userId, int limit)
         {
             // Query orders using Entity Framework
             var orders = await dbContext.Set<Order>()
@@ -83,8 +83,7 @@ namespace WebApplication.DBHelper
                 .OrderByDescending(o => o.OrderDate)
                 .Take(limit)
                 .ToListAsync();
-
-            return orders;
+            return AutoMapperConfig.Mapper.Map<List<OrdersDTO>>(orders);
         }
     }
 }

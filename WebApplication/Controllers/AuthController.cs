@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
     {
         [System.Web.Http.Route("api/auth/login")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> Auth(User user)
+        public IHttpActionResult Auth(User user)
         {
             return Ok(user);
         }

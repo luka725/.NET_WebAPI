@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
+            this.OrdersDgv = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.OrdersDgv)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -40,17 +42,27 @@
             this.label1.Size = new System.Drawing.Size(0, 31);
             this.label1.TabIndex = 0;
             // 
+            // OrdersDgv
+            // 
+            this.OrdersDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.OrdersDgv.Location = new System.Drawing.Point(18, 183);
+            this.OrdersDgv.Name = "OrdersDgv";
+            this.OrdersDgv.Size = new System.Drawing.Size(770, 321);
+            this.OrdersDgv.TabIndex = 1;
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 583);
+            this.Controls.Add(this.OrdersDgv);
             this.Controls.Add(this.label1);
             this.Name = "ClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Orders";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
             this.Load += new System.EventHandler(this.ClientForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.OrdersDgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -59,6 +71,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView OrdersDgv;
     }
 }
 
