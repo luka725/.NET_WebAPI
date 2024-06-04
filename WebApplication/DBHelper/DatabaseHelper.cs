@@ -75,14 +75,19 @@ namespace WebApplication.DBHelper
                 throw new Exception("Error getting user by ID", ex);
             }
         }
-        public async Task<List<OrdersDTO>> GetOrdersForUserAsync(int userId, int limit)
+        public async Task<List<OrdersDTO>> GetOrdersForUserAsync(int userId, int page, int limit)
         {
+            // Calculate the number of items to skip based on the page number and limit
+            int skip = (page - 1) * limit;
+
             // Query orders using Entity Framework
             var orders = await dbContext.Set<Order>()
                 .Where(o => o.UserID == userId)
                 .OrderByDescending(o => o.OrderDate)
+                .Skip(skip)
                 .Take(limit)
                 .ToListAsync();
+
             return AutoMapperConfig.Mapper.Map<List<OrdersDTO>>(orders);
         }
     }

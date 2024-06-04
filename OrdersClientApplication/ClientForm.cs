@@ -16,6 +16,7 @@ namespace OrdersClientApplication
 {
     public partial class ClientForm : Form
     {
+        private int currentPage = 1;
         private readonly HttpClient Client;
         private readonly int userID;
         public ClientForm(int id, HttpClient client)
@@ -55,43 +56,52 @@ namespace OrdersClientApplication
         {
             var user = await GetUserInfo(userID);
             label1.Text = $"Hello {user.Name}";
-            List<OrdersDTO> orders = await FetchOrdersForUser(userID);
+            List<OrdersDTO> orders = await FetchOrdersForUser(userID, 1);
 
             PopulateDataGridView(orders);
         }
-        private async Task<List<OrdersDTO>> FetchOrdersForUser(int userId)
+        private async Task FetchAndPopulateOrders()
+        {
+            List<OrdersDTO> orders = await FetchOrdersForUser(userID, currentPage);
+            PopulateDataGridView(orders);
+            NextBtn.Enabled = orders.Any();
+            PrevBtn.Enabled = currentPage > 1;
+            PageNumber.Text = currentPage.ToString();
+        }
+        private async Task<List<OrdersDTO>> FetchOrdersForUser(int userId, int page)
         {
             string baseAddress = "https://localhost:44322/";
+            string requestUrl = $"{baseAddress}api/orders/user?id={userId}&page={page}";
 
-            string requestUrl = $"{baseAddress}api/orders/user?id={userId}";
-                try
+            try
+            {
+                HttpResponseMessage response = await Client.GetAsync(requestUrl);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage response = await Client.GetAsync(requestUrl);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string responseBody = await response.Content.ReadAsStringAsync();
-
-                        List<OrdersDTO> orders = JsonConvert.DeserializeObject<List<OrdersDTO>>(responseBody);
-                        return orders;
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Failed to retrieve orders. Status code: {response.StatusCode}");
-                    }
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    List<OrdersDTO> orders = JsonConvert.DeserializeObject<List<OrdersDTO>>(responseBody);
+                    return orders;
                 }
-                catch (HttpRequestException ex)
+                else
                 {
-                    MessageBox.Show($"An error occurred: {ex.Message}");
+                    MessageBox.Show($"Failed to retrieve orders. Status code: {response.StatusCode}");
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
             return new List<OrdersDTO>();
         }
+
         private void PopulateDataGridView(List<OrdersDTO> orders)
         {
             OrdersDgv.Rows.Clear();
             OrdersDgv.ColumnCount = 2;
             OrdersDgv.Columns[0].Name = "OrderId";
             OrdersDgv.Columns[1].Name = "OrderDate";
+
             foreach (var order in orders)
             {
                 OrdersDgv.Rows.Add(order.ID, order.OrderDate);
@@ -100,6 +110,21 @@ namespace OrdersClientApplication
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private async void PrevBtn_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                await FetchAndPopulateOrders();
+            }
+        }
+
+        private async void NextBtn_Click(object sender, EventArgs e)
+        {
+            currentPage++;
+            await FetchAndPopulateOrders();
         }
     }
 }
