@@ -167,7 +167,6 @@
     <Compile Include="Attributes\BasicAuthenticationAttribute.cs" />
     <Compile Include="Common\AutoMapperConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="DBHelper\DatabaseHelper.cs" />
     <Compile Include="Global.asax.cs">

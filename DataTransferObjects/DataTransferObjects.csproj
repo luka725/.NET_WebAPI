@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CategoriesDTO.cs" />
     <Compile Include="DiscountsDTO.cs" />
+    <Compile Include="OrderDetailProductDTO.cs" />
     <Compile Include="OrderDetailsDTO.cs" />
     <Compile Include="OrdersDTO.cs" />
     <Compile Include="ProductsDiscountsDTO.cs" />

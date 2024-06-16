@@ -33,6 +33,8 @@
             this.LoginBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.RegisterBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EmailText
@@ -77,11 +79,32 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Password:";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(149, 280);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(18, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Or";
+            // 
+            // RegisterBtn
+            // 
+            this.RegisterBtn.Location = new System.Drawing.Point(124, 296);
+            this.RegisterBtn.Name = "RegisterBtn";
+            this.RegisterBtn.Size = new System.Drawing.Size(75, 23);
+            this.RegisterBtn.TabIndex = 6;
+            this.RegisterBtn.Text = "Register";
+            this.RegisterBtn.UseVisualStyleBackColor = true;
+            this.RegisterBtn.Click += new System.EventHandler(this.RegisterBtn_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 450);
+            this.Controls.Add(this.RegisterBtn);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LoginBtn);
@@ -102,5 +125,7 @@
         private System.Windows.Forms.Button LoginBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button RegisterBtn;
     }
 }

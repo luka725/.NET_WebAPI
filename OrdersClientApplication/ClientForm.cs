@@ -17,6 +17,7 @@ namespace OrdersClientApplication
     public partial class ClientForm : Form
     {
         private int currentPage = 1;
+        private int pageSize = 5;
         private readonly HttpClient Client;
         private readonly int userID;
         public ClientForm(int id, HttpClient client)
@@ -59,6 +60,7 @@ namespace OrdersClientApplication
             List<OrdersDTO> orders = await FetchOrdersForUser(userID, 1);
 
             PopulateDataGridView(orders);
+            //LoadData();
         }
         private async Task FetchAndPopulateOrders()
         {
@@ -106,6 +108,7 @@ namespace OrdersClientApplication
             {
                 OrdersDgv.Rows.Add(order.ID, order.OrderDate);
             }
+            PageNumber.Text = currentPage.ToString();
         }
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -117,14 +120,73 @@ namespace OrdersClientApplication
             if (currentPage > 1)
             {
                 currentPage--;
-                await FetchAndPopulateOrders();
+                var orders = await FetchOrdersForUser(userID, currentPage, pageSize);
+                PopulateDataGridView(orders);
+                NextBtn.Enabled = true;
             }
+            PrevBtn.Enabled = currentPage > 1;
         }
 
         private async void NextBtn_Click(object sender, EventArgs e)
         {
-            currentPage++;
-            await FetchAndPopulateOrders();
+                currentPage++;
+                var orders = await FetchOrdersForUser(userID, currentPage, pageSize);
+                PopulateDataGridView(orders);
+                NextBtn.Enabled = orders.Count == pageSize;
+                PrevBtn.Enabled = currentPage > 1;
+        }
+        private async Task<List<OrderDetailProductDTO>> FetchOrdersForUser(int userId, int page, int limit)
+        {
+            string baseAddress = "https://localhost:44322/";
+            string requestUrl = $"{baseAddress}api/orders/user?id={userId}&page={page}&limit={limit}";
+
+            try
+            {
+                HttpResponseMessage response = await Client.GetAsync(requestUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    List<OrderDetailProductDTO> orders = JsonConvert.DeserializeObject<List<OrderDetailProductDTO>>(responseBody);
+                    return orders;
+                }
+                else
+                {
+                    MessageBox.Show($"Failed to retrieve orders. Status code: {response.StatusCode}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+            return new List<OrderDetailProductDTO>();
+        }
+        private void PopulateDataGridView(List<OrderDetailProductDTO> orders)
+        {
+            OrdersDgv.Rows.Clear();
+            OrdersDgv.Columns.Clear();
+
+            OrdersDgv.ColumnCount = 6;
+            OrdersDgv.Columns[0].Name = "OrderID";
+            OrdersDgv.Columns[1].Name = "OrderDate";
+            OrdersDgv.Columns[2].Name = "OrderDetailID";
+            OrdersDgv.Columns[3].Name = "ProductID";
+            OrdersDgv.Columns[4].Name = "ProductName";
+            OrdersDgv.Columns[5].Name = "Quantity";
+
+            foreach (var order in orders)
+            {
+                OrdersDgv.Rows.Add(order.OrderID, order.OrderDate, order.OrderDetailID, order.ProductID, order.ProductName, order.Quantity, order.UnitPrice);
+            }
+            PageNumber.Text = currentPage.ToString();
+        }
+        private async void LoadData()
+        {
+            var orders = await FetchOrdersForUser(userID, currentPage, pageSize);
+            PopulateDataGridView(orders);
+
+            NextBtn.Enabled = orders.Count == pageSize;
+            PrevBtn.Enabled = currentPage > 1;
         }
     }
 }

@@ -14,3 +14,4 @@ D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplica
 D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.pdb
 D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\DataTransferObjects.dll
 D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\bin\Debug\DataTransferObjects.pdb
+D:\GAU\.NET_WebAPI\WEB_API\OrdersClientApplication\obj\Debug\OrdersClientApplication.RegistrationForm.resources

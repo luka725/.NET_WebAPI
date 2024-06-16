@@ -21,7 +21,7 @@ namespace WebApplication.Controllers
             return Ok();
         }
 
-        [HttpGet]
+/*        [HttpGet]
         [Route("user")]
         public async Task<IHttpActionResult> GetUserOrders(int id, int page = 1, int limit = 5)
         {
@@ -43,6 +43,30 @@ namespace WebApplication.Controllers
             {
                 return InternalServerError(ex);
             }
+        }*/
+        [HttpGet]
+        [Route("user")]
+        public async Task<IHttpActionResult> GetUserOrders(int id, int page = 1, int limit = 5)
+        {
+            int userId = (int)Request.Properties["UserID"];
+
+            try
+            {
+                if (userId == id)
+                {
+                    var orders = await DatabaseHelper.Instance.GetOrdersForUserAsync(userId, page, limit);
+                    return Ok(orders);
+                }
+                else
+                {
+                    return BadRequest("Unauthorized access.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
+
     }
 }

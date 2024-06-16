@@ -77,10 +77,8 @@ namespace WebApplication.DBHelper
         }
         public async Task<List<OrdersDTO>> GetOrdersForUserAsync(int userId, int page, int limit)
         {
-            // Calculate the number of items to skip based on the page number and limit
             int skip = (page - 1) * limit;
 
-            // Query orders using Entity Framework
             var orders = await dbContext.Set<Order>()
                 .Where(o => o.UserID == userId)
                 .OrderByDescending(o => o.OrderDate)
@@ -89,6 +87,51 @@ namespace WebApplication.DBHelper
                 .ToListAsync();
 
             return AutoMapperConfig.Mapper.Map<List<OrdersDTO>>(orders);
+        }
+        public async Task<int?> RegisterUserAsync(UsersDTO registerUser)
+        {
+            User user = AutoMapperConfig.Mapper.Map<User>(registerUser);
+            try
+            {
+                bool userExists = await dbContext.Set<User>().AnyAsync(u => u.Email == user.Email);
+                if (userExists)
+                {
+                    return null;
+                }
+                user.RoleID = 1;
+                dbContext.Set<User>().Add(user);
+                await dbContext.SaveChangesAsync();
+
+                return user.ID;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public async Task<List<OrderDetailProductDTO>> GetOrderForUserAsync(int userId, int page, int limit)
+        {
+            int skip = (page - 1) * limit;
+
+            var orderDetails = await dbContext.Set<Order>()
+                .Where(o => o.UserID == userId)
+                .OrderByDescending(o => o.OrderDate)
+                .Skip(skip)
+                .Take(limit)
+                .Select(o => new OrderDetailProductDTO
+                {
+                    OrderID = o.ID,
+                    OrderDate = o.OrderDate,
+                    OrderDetailID = o.OrderDetail.ID,
+                    ProductID = o.OrderDetail.Product.ID,
+                    ProductName = o.OrderDetail.Product.Name,
+                    Quantity = o.OrderDetail.Quantity,
+                    ProductPrice = o.OrderDetail.Product.Price
+                })
+                .ToListAsync();
+
+            return orderDetails;
         }
     }
 }

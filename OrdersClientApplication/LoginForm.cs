@@ -11,12 +11,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace OrdersClientApplication
 {
     public partial class LoginForm : Form
     {
         private readonly HttpClient client;
+        private int Id;
         public LoginForm()
         {
             InitializeComponent();
@@ -26,19 +28,19 @@ namespace OrdersClientApplication
         {
             var email = EmailText.Text;
             var password = PasswordText.Text;
-            var isAuthenticated = await AuthenticateUser(email, password);
+            
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 return;
             }
+            var isAuthenticated = await AuthenticateUser(email, password);
             if (isAuthenticated)
             {
                 int userid = await GetUserId(email);
                 ClientForm clientForm = new ClientForm(userid, client);
                 Hide();
                 clientForm.Show();
-                clientForm.FormClosed += (s, args) => Show();
             }
         }
 
@@ -112,6 +114,13 @@ namespace OrdersClientApplication
                 MessageBox.Show($"Error getting user ID by email: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
+        }
+
+        private void RegisterBtn_Click(object sender, EventArgs e)
+        {
+            RegistrationForm regform = new RegistrationForm(client);
+            Hide();
+            regform.Show();
         }
     }
 }
