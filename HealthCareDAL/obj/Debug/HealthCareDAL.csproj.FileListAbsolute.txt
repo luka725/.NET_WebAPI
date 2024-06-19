@@ -1,0 +1,12 @@
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\HealthCareDAL.dll.config
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\HealthCareDAL.dll
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\HealthCareDAL.pdb
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\EntityFramework.dll
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\EntityFramework.xml
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\obj\Debug\HealthCareDAL.csproj.AssemblyReference.cache
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\obj\Debug\HealthCareDAL.csproj.CoreCompileInputs.cache
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\obj\Debug\HealthCareDAL.csproj.CopyComplete
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\obj\Debug\HealthCareDAL.dll
+D:\GAU\.NET_WebAPI\WEB_API\HealthCareDAL\obj\Debug\HealthCareDAL.pdb
