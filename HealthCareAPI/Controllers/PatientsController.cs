@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace HealthCareAPI.Controllers
 {
     [TokenAuthenticationFilter]
-    [RoutePrefix("/api/patients")]
+    [RoutePrefix("api/patients")]
     public class PatientsController : ApiController
     {
         private readonly DatabaseHelper _dbHelper;
