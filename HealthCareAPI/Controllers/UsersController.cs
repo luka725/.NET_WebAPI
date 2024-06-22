@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -12,17 +13,46 @@ using System.Web.Http.Cors;
 
 namespace HealthCareAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing users.
+    /// </summary>
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
         private readonly DatabaseHelper _dbHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsersController"/> class.
+        /// </summary>
         public UsersController()
         {
             _dbHelper = DatabaseHelper.Instance;
         }
-        // GET: User
+        /// <summary>
+        /// Retrieves all roles from the database.
+        /// </summary>
+        /// <returns>HTTP response containing a list of RoleDTOs.</returns>
+        [HttpGet]
+        [Route("roles")]
+        public async Task<IHttpActionResult> GetRoles()
+        {
+            try
+            {
+                var roles = await _dbHelper.GetRolesAsync();
+                return Ok(roles);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine(ex.Message);
+                return InternalServerError();
+            }
+        }
+        /// <summary>
+        /// Tests user retrieval.
+        /// </summary>
+        /// <returns>Returns user data as JSON.</returns>
         [TokenAuthenticationFilter]
         [RoleAuthenticationFilter("Editor")]
         [HttpGet]
@@ -50,7 +80,11 @@ namespace HealthCareAPI.Controllers
                 return InternalServerError();
             }
         }
-        // GET: Users
+
+        /// <summary>
+        /// Tests user roles retrieval.
+        /// </summary>
+        /// <returns>Returns user data with roles as JSON.</returns>
         [HttpGet]
         [Route("test/userrole")]
         public async Task<IHttpActionResult> TestUserRolesRetrieval()
@@ -63,6 +97,11 @@ namespace HealthCareAPI.Controllers
 
             return Ok(user);
         }
+
+        /// <summary>
+        /// Gets user with roles and tokens.
+        /// </summary>
+        /// <returns>Returns user data with roles and tokens as JSON.</returns>
         [TokenAuthenticationFilter]
         [RoleAuthenticationFilter("Administrator")]
         [HttpGet]
@@ -78,6 +117,12 @@ namespace HealthCareAPI.Controllers
 
             return Ok(user);
         }
+
+        /// <summary>
+        /// Retrieves details of a specific user by their ID.
+        /// </summary>
+        /// <param name="userId">ID of the user.</param>
+        /// <returns>Returns user details as JSON.</returns>
         [TokenAuthenticationFilter]
         [RoleAuthenticationFilter("Administrator")]
         [HttpGet]
@@ -94,6 +139,12 @@ namespace HealthCareAPI.Controllers
             return Ok(user); // Return user details
         }
 
+        /// <summary>
+        /// Updates an existing user by their ID.
+        /// </summary>
+        /// <param name="userId">ID of the user to update.</param>
+        /// <param name="updatedUser">Updated details of the user.</param>
+        /// <returns>Status of the update operation.</returns>
         [TokenAuthenticationFilter]
         [RoleAuthenticationFilter("Administrator")]
         [HttpPut]
@@ -110,7 +161,11 @@ namespace HealthCareAPI.Controllers
             return Ok(); // User updated successfully
         }
 
-
+        /// <summary>
+        /// Deletes an existing user by their ID.
+        /// </summary>
+        /// <param name="userId">ID of the user to delete.</param>
+        /// <returns>Status of the delete operation.</returns>
         [TokenAuthenticationFilter]
         [RoleAuthenticationFilter("Administrator")]
         [HttpDelete]
@@ -126,6 +181,12 @@ namespace HealthCareAPI.Controllers
 
             return Ok(); // User deleted successfully
         }
+
+        /// <summary>
+        /// Authenticates a user and returns a token if successful.
+        /// </summary>
+        /// <param name="loginDto">Login details.</param>
+        /// <returns>Token and its expiry date.</returns>
         [HttpPost]
         [Route("login")]
         public async Task<IHttpActionResult> Login([FromBody] LoginDTO loginDto)
@@ -135,7 +196,7 @@ namespace HealthCareAPI.Controllers
             {
                 return Unauthorized();
             }
-
+            await _dbHelper.CleanupExpiredTokensAsync();
             var existingToken = user.Tokens.FirstOrDefault(t => t.ExpiryDateTime > DateTime.UtcNow);
             if (existingToken != null)
             {
@@ -146,6 +207,11 @@ namespace HealthCareAPI.Controllers
             return Ok(new TokenResponseDTO { Token = newToken.TokenValue, ExpiryDate = newToken.ExpiryDateTime });
         }
 
+        /// <summary>
+        /// Registers a new user.
+        /// </summary>
+        /// <param name="user">Details of the new user.</param>
+        /// <returns>Registered user DTO.</returns>
         [HttpPost]
         [Route("register")]
         public async Task<IHttpActionResult> Register([FromBody] RegisterDTO user)
@@ -168,6 +234,51 @@ namespace HealthCareAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"An error occurred during registration: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the current authenticated user.
+        /// </summary>
+        /// <returns>Current user data with roles as JSON.</returns>
+        [TokenAuthenticationFilter]
+        [Route("me")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetCurrentUser()
+        {
+            try
+            {
+                // Get token from request header
+                var tokenHeader = Request.Headers.Authorization?.Parameter;
+
+                if (string.IsNullOrEmpty(tokenHeader))
+                {
+                    return Unauthorized();
+                }
+
+                // Retrieve user ID using token
+                var userId = await _dbHelper.GetUserIdByTokenAsync(tokenHeader);
+
+                if (!userId.HasValue)
+                {
+                    return Unauthorized();
+                }
+
+                // Retrieve user with roles by user ID
+                var userWithRoles = await _dbHelper.GetUserWithRolesByIdAsync(userId.Value);
+
+                if (userWithRoles == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(userWithRoles);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Exception in GetCurrentUser: {ex.Message}");
+                return InternalServerError();
             }
         }
     }

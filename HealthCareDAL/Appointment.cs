@@ -9,6 +9,7 @@ namespace HealthCareDAL
     public partial class Appointment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+
         public Appointment()
         {
             Billings = new HashSet<Billing>();

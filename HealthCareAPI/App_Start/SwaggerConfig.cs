@@ -2,13 +2,21 @@ using System.Web.Http;
 using WebActivatorEx;
 using HealthCareAPI;
 using Swashbuckle.Application;
+using System;
+using System.IO;
+using System.Reflection;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace HealthCareAPI
-{
+{    /// <summary>
+     /// Configures Swagger for the application.
+     /// </summary>
     public class SwaggerConfig
     {
+        /// <summary>
+        /// Registers the Swagger configuration.
+        /// </summary>
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
@@ -33,7 +41,8 @@ namespace HealthCareAPI
                         // additional fields by chaining methods off SingleApiVersion.
                         //
                         c.SingleApiVersion("v1", "HealthCareAPI");
-
+                        var xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin", "HealthCareAPI.xml");
+                        c.IncludeXmlComments(xmlPath);
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();
@@ -61,7 +70,7 @@ namespace HealthCareAPI
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")

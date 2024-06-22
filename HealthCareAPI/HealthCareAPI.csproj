@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\HealthCareAPI.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -246,6 +247,7 @@
     <Compile Include="DTOs\RoleDTO.cs" />
     <Compile Include="DTOs\TokenDTO.cs" />
     <Compile Include="DTOs\TokenResponseDTO.cs" />
+    <Compile Include="DTOs\UserDoctorAppointmentBillingDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="DTOs\UserWithRolesAndTokensDTO.cs" />
     <Compile Include="DTOs\UserWithRolesDTO.cs" />
@@ -328,6 +330,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Appointments\" />
     <Folder Include="Views\Billing\" />
+    <Folder Include="Views\Data\" />
     <Folder Include="Views\Doctors\" />
     <Folder Include="Views\Patients\" />
     <Folder Include="Views\Users\" />

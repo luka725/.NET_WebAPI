@@ -39,7 +39,7 @@ public class TokenAuthenticationFilter : AuthorizationFilterAttribute
         var principal = new UserPrincipal(user.Username);
 
         // Fetch user roles and populate UserPrincipal
-        var roles = await _dbHelper.GetUserRolesAsync(user.UserID); // Implement this method in your DatabaseHelper
+        var roles = await _dbHelper.GetUserRolesAsync(user.UserID);
         foreach (var role in roles)
         {
             principal.Roles.Add(role.RoleName);

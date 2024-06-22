@@ -9,17 +9,27 @@ using System.Web.Http;
 
 namespace HealthCareAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing patient operations.
+    /// </summary>
     [TokenAuthenticationFilter]
     [RoutePrefix("api/patients")]
     public class PatientsController : ApiController
     {
         private readonly DatabaseHelper _dbHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientsController"/> class.
+        /// </summary>
         public PatientsController()
         {
             _dbHelper = DatabaseHelper.Instance;
         }
 
+        /// <summary>
+        /// Retrieves all patients.
+        /// </summary>
+        /// <returns>A list of all patients.</returns>
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetAllPatients()
@@ -35,6 +45,11 @@ namespace HealthCareAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves a patient by their ID.
+        /// </summary>
+        /// <param name="patientId">The ID of the patient.</param>
+        /// <returns>The patient details.</returns>
         [HttpGet]
         [Route("{patientId}")]
         public async Task<IHttpActionResult> GetPatientById(int patientId)
@@ -44,7 +59,7 @@ namespace HealthCareAPI.Controllers
                 var patient = await _dbHelper.GetPatientByIdAsync(patientId);
                 return Ok(patient);
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
@@ -54,6 +69,11 @@ namespace HealthCareAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new patient.
+        /// </summary>
+        /// <param name="patient">The patient details to create.</param>
+        /// <returns>The created patient.</returns>
         [HttpPost]
         [Route("")]
         public async Task<IHttpActionResult> CreatePatient(PatientDTO patient)
@@ -69,6 +89,12 @@ namespace HealthCareAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing patient by their ID.
+        /// </summary>
+        /// <param name="patientId">The ID of the patient to update.</param>
+        /// <param name="patient">The updated patient details.</param>
+        /// <returns>The updated patient.</returns>
         [HttpPut]
         [Route("{patientId}")]
         public async Task<IHttpActionResult> UpdatePatient(int patientId, PatientDTO patient)
@@ -78,7 +104,7 @@ namespace HealthCareAPI.Controllers
                 var updatedPatient = await _dbHelper.UpdatePatientAsync(patientId, patient);
                 return Ok(updatedPatient);
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
@@ -88,6 +114,11 @@ namespace HealthCareAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a patient by their ID.
+        /// </summary>
+        /// <param name="patientId">The ID of the patient to delete.</param>
+        /// <returns>A success message if deletion is successful.</returns>
         [HttpDelete]
         [Route("{patientId}")]
         public async Task<IHttpActionResult> DeletePatient(int patientId)
@@ -97,7 +128,7 @@ namespace HealthCareAPI.Controllers
                 await _dbHelper.DeletePatientAsync(patientId);
                 return Ok($"Patient with ID {patientId} deleted successfully.");
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
@@ -106,6 +137,5 @@ namespace HealthCareAPI.Controllers
                 return BadRequest($"Error deleting patient: {ex.Message}");
             }
         }
-
     }
 }
