@@ -756,8 +756,8 @@ namespace HealthCareAPI.Helpers
         /// <param name="pageSize">The number of items per page for pagination.</param>
         /// <returns>A list of doctor appointment billing DTOs matching the filters and pagination criteria.</returns>
 
-        public async Task<List<UserDoctorAppointmentBillingDTO>> GetUserDoctorAppointmentBillingAsync(
-    string doctorName, string patientName, string appointmentType, string paymentStatus, int page, int pageSize)
+        public async Task<(int TotalItems, List<UserDoctorAppointmentBillingDTO> Items)> GetUserDoctorAppointmentBillingAsync(
+     string doctorName, string patientName, string appointmentType, string paymentStatus, int page, int pageSize)
         {
             try
             {
@@ -807,12 +807,16 @@ namespace HealthCareAPI.Helpers
                     query = query.Where(a => a.PaymentStatus.Contains(paymentStatus));
                 }
 
-                // Apply pagination after all filtering and ordering
-                query = query.OrderBy(a => a.AppointmentDateTime)
-                             .Skip((page - 1) * pageSize)
-                             .Take(pageSize);
+                // Get the total count before applying pagination
+                var totalItems = await query.CountAsync().ConfigureAwait(false);
 
-                return await query.ToListAsync().ConfigureAwait(false);
+                // Apply pagination after all filtering and ordering
+                var items = await query.OrderBy(a => a.AppointmentDateTime)
+                                       .Skip((page - 1) * pageSize)
+                                       .Take(pageSize)
+                                       .ToListAsync().ConfigureAwait(false);
+
+                return (totalItems, items);
             }
             catch (Exception ex)
             {

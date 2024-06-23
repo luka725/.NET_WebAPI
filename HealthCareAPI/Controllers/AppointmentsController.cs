@@ -41,8 +41,12 @@ public class AppointmentsController : ApiController
     [Route("")]
     public async Task<IHttpActionResult> GetUserDoctorAppointmentBilling(string doctorName = "", string patientName = "", string appointmentType = "", string paymentStatus = "", int page = 1, int pageSize = 10)
     {
-        var data = await _dbHelper.GetUserDoctorAppointmentBillingAsync(doctorName, patientName, appointmentType, paymentStatus, page, pageSize);
-        return Ok(data);
+        var result = await _dbHelper.GetUserDoctorAppointmentBillingAsync(doctorName, patientName, appointmentType, paymentStatus, page, pageSize);
+        return Ok(new
+        {
+            TotalItems = result.TotalItems,
+            Items = result.Items
+        });
     }
 
     /// <summary>
